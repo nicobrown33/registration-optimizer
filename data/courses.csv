@@ -1,0 +1,28 @@
+id,department,title,block,capacity
+CSCI0101,CSCI,Introduction to Computer Science,A,30
+CSCI0201,CSCI,Data Structures,C,25
+MATH0121,MATH,Calculus I,A,35
+MATH0200,MATH,Multivariable Calculus,B,30
+MATH0310,MATH,Linear Algebra,D,28
+ECON0150,ECON,Introductory Macroeconomics,B,45
+ECON0155,ECON,Introductory Microeconomics,A,45
+ECON0210,ECON,Econometrics,E,25
+ENVS0112,ENVS,Intro to Environmental Studies,C,40
+ENVS0215,ENVS,Climate Policy,F,20
+PSYC0105,PSYC,Introductory Psychology,B,50
+PSYC0220,PSYC,Cognitive Psychology,D,24
+ENGL0101,ENGL,College Writing,A,18
+ENGL0270,ENGL,Creative Writing: Fiction,G,15
+HIST0103,HIST,Modern World History,C,35
+HIST0245,HIST,US Environmental History,E,22
+PHIL0101,PHIL,Introduction to Philosophy,D,28
+PHIL0215,PHIL,Ethics,F,22
+ARBC0101,ARBC,Elementary Arabic I,A,16
+ARTS0170,ARTS,Drawing I,G,14
+BIOL0140,BIOL,Introductory Biology,B,40
+BIOL0145,BIOL,Introductory Biology Laboratory,H,20
+PHYS0109,PHYS,General Physics I,C,30
+DANC0100,DANC,Modern Dance Technique,H,18
+POLS0102,POLS,Intro to Comparative Politics,E,32
+SOAN0101,SOAN,Introductory Sociology,F,38
+FYSE1234,FYSE,First-Year Seminar: Food and Culture,D,15

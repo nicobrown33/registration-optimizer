@@ -1,0 +1,593 @@
+# Research and Design Prompt: A Graph-Theoretic Course Registration System for Middlebury College
+
+## Objective
+
+I am a student at Middlebury College interested in developing a proposal to improve the college's course registration and course scheduling system.
+
+The goal of this project is to investigate how Middlebury currently allocates students to courses and determine whether a system based on **ranked student preferences, graph theory, and optimization algorithms** could produce a more efficient, transparent, and fair outcome.
+
+The first version of this project should **not use utility scores, bidding points, or monetary values**. Students should simply rank the courses they want in order of preference.
+
+The central research question is:
+
+> **Can Middlebury College use a graph-theoretic optimization system to allocate students to courses in a way that improves overall student satisfaction and fairness relative to the current registration system?**
+
+The project should be grounded in Middlebury's actual registration policies, course structure, enrollment capacities, prerequisites, and scheduling system.
+
+---
+
+# Part I: Research Middlebury's Current System
+
+Conduct detailed research into Middlebury College's current course registration system.
+
+Determine:
+
+### 1. Registration Process
+
+How does registration currently work for:
+
+* First-year students?
+* Sophomores?
+* Juniors?
+* Seniors?
+* Students registering for courses in later semesters?
+* Students who fail to get into a course?
+* Students on waitlists?
+* Students attempting to add a course after the semester begins?
+
+Identify:
+
+* Whether registration is first-come, first-served.
+* Whether students have registration windows.
+* Whether class year or credits determine priority.
+* Whether professors or departments control enrollment.
+* How waitlists operate.
+* How prerequisites are enforced.
+* How students handle course conflicts.
+* How much discretion individual instructors have.
+
+The purpose is to establish a precise baseline for the current system.
+
+---
+
+### 2. Course Capacities
+
+Determine how course enrollment limits are established.
+
+Investigate:
+
+* Maximum course capacities.
+* Classroom size limitations.
+* Instructor preferences.
+* Departmental restrictions.
+* Courses with multiple sections.
+* Courses with unusually high demand.
+* Courses with waitlists.
+* Whether the college adds sections in response to demand.
+
+The model must treat course capacity as a central constraint.
+
+---
+
+### 3. Existing Student Preference Data
+
+Determine whether Middlebury currently collects any information about student preferences before registration.
+
+For example:
+
+* First-year course preference forms.
+* Registration requests.
+* Waitlists.
+* Course shopping patterns.
+* Historical enrollment data.
+* Courses students commonly attempt to take together.
+
+Determine what data would theoretically be available for an optimization model.
+
+---
+
+# Part II: Translate Registration into a Graph-Theoretic Problem
+
+Develop a formal mathematical representation of the registration system.
+
+## A. Student-Course Bipartite Graph
+
+Represent the system as a bipartite graph.
+
+One set of nodes represents students:
+
+[
+S = {s_1, s_2, ..., s_n}
+]
+
+The other set represents courses:
+
+[
+C = {c_1, c_2, ..., c_m}
+]
+
+An edge exists between a student and a course if that student wants to take the course.
+
+Each student submits a strict ranking:
+
+[
+c_{i_1} \succ c_{i_2} \succ c_{i_3} \succ ...
+]
+
+For example:
+
+Student A:
+
+1. Statistics
+2. Algorithms
+3. Linear Algebra
+4. Spanish
+
+Student B:
+
+1. Algorithms
+2. Statistics
+3. Economics
+
+The model should initially use only this ranking information.
+
+Do not assign utility points at this stage.
+
+---
+
+## B. Course Capacity Constraints
+
+Each course has a capacity:
+
+[
+q(c_j)
+]
+
+For example:
+
+* Statistics: 30 seats
+* Algorithms: 25 seats
+* Linear Algebra: 40 seats
+
+The algorithm must ensure:
+
+[
+\text{Number of students assigned to course } c_j \leq q(c_j)
+]
+
+No course may exceed its capacity.
+
+---
+
+## C. Student Schedule Constraints
+
+A student should not be assigned to two courses that meet at the same time.
+
+Represent this using a second graph.
+
+Create a **course conflict graph**:
+
+* Each node represents a course.
+* An edge connects two courses if they occur at overlapping times.
+
+For example:
+
+```text
+Statistics -------- Algorithms
+       |
+       |
+    Economics
+```
+
+If Statistics and Algorithms meet at the same time, a student cannot receive both.
+
+The assignment algorithm must therefore satisfy:
+
+[
+x_{s,c_1} + x_{s,c_2} \leq 1
+]
+
+whenever courses (c_1) and (c_2) conflict.
+
+---
+
+# Part III: Develop a Ranking-Based Allocation Algorithm
+
+Develop one or more algorithms that assign students to courses based solely on ranked preferences.
+
+The goal is to maximize overall satisfaction while maintaining fairness.
+
+A simple ranking system could assign costs:
+
+| Preference | Cost |
+| ---------- | ---- |
+| 1st choice | 0    |
+| 2nd choice | 1    |
+| 3rd choice | 2    |
+| 4th choice | 3    |
+| 5th choice | 4    |
+
+The optimization problem then attempts to minimize total preference cost:
+
+[
+\min \sum_{s \in S}\sum_{c \in C} x_{s,c} \cdot \text{Rank}(s,c)
+]
+
+subject to:
+
+1. Course capacity constraints.
+2. Schedule conflict constraints.
+3. Prerequisite constraints.
+4. Student enrollment requirements.
+5. Any necessary institutional constraints.
+
+However, do not assume that minimizing total rank is automatically fair.
+
+Compare multiple objectives.
+
+---
+
+# Part IV: Compare Different Definitions of "Fair"
+
+A central goal of the research should be to determine what "fair" actually means.
+
+Compare at least the following models.
+
+## Model 1: Maximize Total Satisfaction
+
+Minimize the total rank assigned across all students.
+
+Example:
+
+```text
+Student A: 1st choice
+Student B: 1st choice
+Student C: 10th choice
+```
+
+versus:
+
+```text
+Student A: 2nd choice
+Student B: 2nd choice
+Student C: 2nd choice
+```
+
+The second may be considered fairer even if the first produces a better total score.
+
+---
+
+## Model 2: Maximize the Number of First Choices
+
+Maximize:
+
+[
+\text{Number of students receiving their first choice}
+]
+
+This is simple and intuitive but may create significant inequality.
+
+---
+
+## Model 3: Lexicographic Fairness
+
+First maximize the number of students receiving their first choice.
+
+Then, subject to that, maximize the number receiving their second choice.
+
+Then third choice, and so on.
+
+This creates a hierarchy of objectives.
+
+---
+
+## Model 4: Max-Min Fairness
+
+Attempt to maximize the satisfaction of the least-satisfied student.
+
+The goal is to prevent a small number of students from receiving extremely poor outcomes.
+
+---
+
+## Model 5: Hybrid Objective
+
+Develop a model balancing:
+
+* First-choice allocation.
+* Average preference rank.
+* Worst-case student outcome.
+* Class-year priorities.
+* Graduation requirements.
+
+The project should analyze the tradeoffs among these objectives.
+
+---
+
+# Part V: Account for Middlebury-Specific Constraints
+
+The system should not be a generic matching model.
+
+It should reflect real Middlebury conditions.
+
+Consider:
+
+### Prerequisites
+
+A student may only receive a course if they have completed required prerequisites.
+
+### Major and Minor Requirements
+
+Students may have courses that are necessary for graduation or major completion.
+
+The model should determine whether such requirements should receive priority.
+
+### Course Conflicts
+
+Students may rank courses that meet at the same time.
+
+The system must choose among them.
+
+### Multiple Sections
+
+If a course has multiple sections, the algorithm should potentially assign students to different sections.
+
+### Course Sequencing
+
+Some courses may only be offered in particular semesters.
+
+### Seniors Near Graduation
+
+A senior who needs a course to graduate may need priority over a freshman who simply prefers it.
+
+This raises an important ethical and mathematical question:
+
+> Should all preferences be treated equally, or should the model incorporate legitimate institutional priorities?
+
+Analyze both possibilities.
+
+---
+
+# Part VI: Develop a Course Conflict Graph
+
+One of the most important components of the project should be a separate graph analyzing course demand.
+
+Construct a graph in which:
+
+* Each node represents a course.
+* An edge connects two courses if students commonly rank both courses.
+
+The weight of the edge represents the number of students who want both.
+
+For example:
+
+```text
+        Statistics
+        /         \
+       /           \
+Algorithms ------ Machine Learning
+```
+
+If many students want both Statistics and Algorithms, the edge between those courses is strong.
+
+This graph can identify:
+
+* Courses that should not be scheduled simultaneously.
+* Interdisciplinary clusters.
+* Courses that compete for the same students.
+* Potential demand for new courses.
+* Courses that should be scheduled sequentially.
+* Departments that should coordinate their timetables.
+
+This creates a second application of graph theory:
+
+> The student-course graph optimizes allocation, while the course-course graph helps optimize future scheduling.
+
+---
+
+# Part VII: Use Historical Data
+
+If possible, obtain historical Middlebury course registration data.
+
+Potential data might include:
+
+* Course enrollment.
+* Course capacity.
+* Waitlists.
+* Registration attempts.
+* Course schedules.
+* Department.
+* Course level.
+* Prerequisites.
+* Student year.
+* Major.
+* Historical demand.
+
+Use this data to create a realistic simulation.
+
+If individual student preference data is unavailable, construct synthetic preferences using:
+
+* Historical enrollment.
+* Major requirements.
+* Course popularity.
+* Course combinations.
+* Student surveys.
+
+Clearly distinguish between real data and simulated data.
+
+---
+
+# Part VIII: Build a Simulation
+
+Create a simulation comparing Middlebury's current registration process with the proposed optimization system.
+
+For each semester:
+
+1. Generate or obtain student course rankings.
+2. Apply the current registration process.
+3. Record the resulting allocations.
+4. Apply the proposed graph-theoretic optimization algorithm.
+5. Record the resulting allocations.
+6. Compare the results.
+
+Evaluate:
+
+### Student Satisfaction
+
+* Percentage receiving first choice.
+* Percentage receiving one of top three choices.
+* Average assigned rank.
+* Median assigned rank.
+* Worst assigned rank.
+
+### Fairness
+
+* Distribution of satisfaction across students.
+* Difference between most- and least-satisfied students.
+* Outcomes by class year.
+* Outcomes by major or academic program.
+
+### Efficiency
+
+* Number of empty seats.
+* Number of students unable to enroll.
+* Number of students receiving courses with schedule conflicts.
+* Number of students placed on waitlists.
+
+### Institutional Planning
+
+* Courses with excess demand.
+* Potential need for additional sections.
+* Courses that should be rescheduled.
+* Course combinations that should be avoided.
+
+---
+
+# Part IX: Visualize the Results
+
+Create visualizations of the system.
+
+Potential visualizations include:
+
+### 1. Student-Course Bipartite Graph
+
+Students on one side.
+
+Courses on the other.
+
+Edges represent preferences.
+
+The final assignment can be highlighted.
+
+---
+
+### 2. Course Demand Network
+
+Courses are nodes.
+
+Edges represent students who rank both courses.
+
+Edge thickness represents demand overlap.
+
+---
+
+### 3. Preference Rank Distribution
+
+Compare:
+
+```text
+Current System vs Proposed System
+```
+
+For:
+
+* 1st-choice outcomes.
+* 2nd-choice outcomes.
+* 3rd-choice outcomes.
+* Lower-ranked outcomes.
+
+---
+
+### 4. Demand Heat Map
+
+Display:
+
+* Course.
+* Number of students requesting it.
+* Number of available seats.
+* Excess demand.
+
+---
+
+### 5. Schedule Conflict Network
+
+Identify classes that many students want simultaneously.
+
+These courses should potentially be moved apart.
+
+---
+
+# Part X: Analyze Potential Problems
+
+The research should not assume that optimization is automatically superior.
+
+Analyze important objections.
+
+### Strategic Ranking
+
+Could students manipulate the system by misrepresenting their true preferences?
+
+### Popularity Spirals
+
+Could everyone rank the same courses first, making allocation difficult?
+
+### Institutional Priorities
+
+Should graduation requirements receive priority?
+
+### Inequality
+
+Could a system that maximizes total satisfaction harm a small group of students?
+
+### Transparency
+
+Would students understand why they received or did not receive a course?
+
+### Stability
+
+Would students have incentives to trade or manipulate assignments?
+
+### Computational Complexity
+
+Can the algorithm operate at Middlebury's scale?
+
+### Privacy
+
+How should student preference data be protected?
+
+The final proposal should explicitly address these issues.
+
+---
+
+# Final Deliverable
+
+Produce a comprehensive research and technical proposal answering:
+
+> **Could Middlebury College improve course registration by collecting ranked student course preferences and using graph theory and optimization to allocate students to courses and improve future scheduling?**
+
+The final proposal should include:
+
+1. A detailed explanation of Middlebury's current registration system.
+2. A mathematical representation of the current problem.
+3. A graph-theoretic model.
+4. One or more allocation algorithms.
+5. A discussion of competing definitions of fairness.
+6. A course conflict and demand graph.
+7. A simulation comparing the current and proposed systems.
+8. Quantitative metrics for evaluating success.
+9. Visualizations of the relevant graphs.
+10. A discussion of limitations, strategic behavior, privacy, and implementation.
+11. A realistic implementation proposal for Middlebury College.
+
+The ultimate goal is not merely to create a mathematically elegant model.
+
+The goal is to determine whether a real college could use student preference data and graph-theoretic optimization to produce a **measurably better course registration system**.

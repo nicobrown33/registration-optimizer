@@ -1,0 +1,164 @@
+================================================================================
+SYNTHETIC PROTOTYPING DATA — FABRICATED, NOT REAL MIDDLEBURY DATA
+================================================================================
+Every name below is invented. Every course ID, title, meeting block, and
+capacity is invented. None of this describes real Middlebury students,
+courses, enrollment numbers, or schedules. It exists only so that Milestone 1
+(build the student-course bipartite graph) has something concrete to load.
+
+Per Part VII of the project prompt, real data (if you obtain it later, e.g.
+from the registrar or a survey you run) must be kept in a separate file and
+clearly labeled "REAL DATA" so the two are never confused in the write-up.
+
+Generated: 2026-07-17
+
+This file is the human-readable reference copy. The same data, in a form
+that's actually pleasant to parse with fscanf()/strtok() in C, lives in:
+  data/courses.csv       (id,department,title,block,capacity)
+  data/preferences.csv   (name,class_year,major,rank1..rank10)
+If you ever edit one, edit the other to match — nothing auto-syncs them.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+COURSE CATALOG (invented)
+--------------------------------------------------------------------------------
+Columns: ID | Department | Title | Meeting Block | Capacity
+
+Meeting blocks (A-H) are arbitrary timeslot labels. Two courses that share a
+block conflict — a student can't be assigned both. There are 8 blocks and 27
+courses, so conflicts will show up once you start ranking multiple courses in
+the same block (see e.g. CSCI0101 and ECON0155, both Block A).
+
+ID              DEPT         TITLE                                   BLOCK  CAP
+CSCI0101        CSCI         Introduction to Computer Science         A     30
+CSCI0201        CSCI         Data Structures                          C     25
+MATH0121        MATH         Calculus I                               A     35
+MATH0200        MATH         Multivariable Calculus                   B     30
+MATH0310        MATH         Linear Algebra                           D     28
+ECON0150        ECON         Introductory Macroeconomics              B     45
+ECON0155        ECON         Introductory Microeconomics              A     45
+ECON0210        ECON         Econometrics                             E     25
+ENVS0112        ENVS         Intro to Environmental Studies           C     40
+ENVS0215        ENVS         Climate Policy                           F     20
+PSYC0105        PSYC         Introductory Psychology                  B     50
+PSYC0220        PSYC         Cognitive Psychology                     D     24
+ENGL0101        ENGL         College Writing                          A     18
+ENGL0270        ENGL         Creative Writing: Fiction                G     15
+HIST0103        HIST         Modern World History                     C     35
+HIST0245        HIST         US Environmental History                 E     22
+PHIL0101        PHIL         Introduction to Philosophy               D     28
+PHIL0215        PHIL         Ethics                                   F     22
+ARBC0101        ARBC         Elementary Arabic I                      A     16
+ARTS0170        ARTS         Drawing I                                G     14
+BIOL0140        BIOL         Introductory Biology                     B     40
+BIOL0145        BIOL         Introductory Biology Laboratory          H     20
+PHYS0109        PHYS         General Physics I                        C     30
+DANC0100        DANC         Modern Dance Technique                   H     18
+POLS0102        POLS         Intro to Comparative Politics            E     32
+SOAN0101        SOAN         Introductory Sociology                   F     38
+FYSE1234        FYSE         First-Year Seminar: Food & Culture       D     15
+
+Note: capacities above are seats. Several popular courses (CSCI0101,
+ECON0150/0155, PSYC0105, BIOL0140) are deliberately going to be oversubscribed
+once you tally the rankings below — that's intentional, so your model has real
+excess demand to resolve.
+
+
+--------------------------------------------------------------------------------
+STUDENTS — TOP 10 RANKED PREFERENCES (1 = most preferred)
+--------------------------------------------------------------------------------
+Format: Name | Class Year | Prospective Major (flavor only, not a hard
+constraint yet) | ranked list of course IDs.
+
+Student: Ava Thompson | Sophomore | Economics
+ 1. ECON0155  2. ECON0150  3. MATH0200  4. PSYC0105  5. ENVS0112
+ 6. HIST0103  7. PHIL0101  8. POLS0102  9. SOAN0101  10. ENGL0270
+
+Student: Marcus Idowu | First-Year | Undeclared
+ 1. FYSE1234  2. ENGL0101  3. CSCI0101  4. PSYC0105  5. BIOL0140
+ 6. MATH0121  7. ARBC0101  8. HIST0103  9. ENVS0112  10. ARTS0170
+
+Student: Priya Ramanathan | Junior | Computer Science
+ 1. CSCI0201  2. MATH0310  3. CSCI0101  4. ECON0210  5. PHYS0109
+ 6. MATH0200  7. PSYC0220  8. PHIL0101  9. ECON0155  10. ENVS0215
+
+Student: Liam O'Connell | Senior | Environmental Studies
+ 1. ENVS0215  2. ENVS0112  3. HIST0245  4. POLS0102  5. ECON0150
+ 6. PHIL0215  7. BIOL0140  8. SOAN0101  9. ECON0210  10. PHYS0109
+
+Student: Ines Duarte | Sophomore | Psychology
+ 1. PSYC0105  2. PSYC0220  3. BIOL0140  4. ENGL0270  5. SOAN0101
+ 6. PHIL0101  7. HIST0103  8. ARTS0170  9. DANC0100  10. ECON0150
+
+Student: Jamal Whitfield | First-Year | Undeclared
+ 1. CSCI0101  2. MATH0121  3. FYSE1234  4. ECON0155  5. PSYC0105
+ 6. ENGL0101  7. BIOL0140  8. PHYS0109  9. ARBC0101  10. HIST0103
+
+Student: Yuki Tanaka | Junior | Biology
+ 1. BIOL0140  2. BIOL0145  3. PHYS0109  4. MATH0200  5. CSCI0101
+ 6. PSYC0220  7. ENVS0112  8. ECON0210  9. PHIL0215  10. MATH0310
+
+Student: Sofia Marchetti | Senior | Political Science
+ 1. POLS0102  2. HIST0245  3. ECON0150  4. PHIL0215  5. SOAN0101
+ 6. ENVS0215  7. HIST0103  8. ECON0210  9. PSYC0105  10. ENGL0270
+
+Student: Devon Marsh | Sophomore | Undeclared
+ 1. ECON0150  2. ECON0155  3. CSCI0101  4. MATH0121  5. PSYC0105
+ 6. BIOL0140  7. POLS0102  8. HIST0103  9. PHIL0101  10. SOAN0101
+
+Student: Chidinma Eze | First-Year | Undeclared
+ 1. FYSE1234  2. PSYC0105  3. ENGL0101  4. ARBC0101  5. BIOL0140
+ 6. SOAN0101  7. DANC0100  8. ARTS0170  9. HIST0103  10. CSCI0101
+
+Student: Noah Bergstrom | Junior | Math
+ 1. MATH0310  2. MATH0200  3. CSCI0201  4. PHYS0109  5. ECON0210
+ 6. CSCI0101  7. PHIL0101  8. PSYC0220  9. ENVS0215  10. HIST0245
+
+Student: Elena Petrova | Senior | English
+ 1. ENGL0270  2. PHIL0215  3. HIST0245  4. PSYC0220  5. ARTS0170
+ 6. DANC0100  7. ENVS0112  8. SOAN0101  9. POLS0102  10. PHIL0101
+
+Student: Tomas Reyes | Sophomore | Economics
+ 1. ECON0155  2. ECON0150  3. MATH0121  4. CSCI0101  5. PHYS0109
+ 6. POLS0102  7. HIST0103  8. PSYC0105  9. ENVS0112  10. ECON0210
+
+Student: Grace Nakamura | First-Year | Undeclared
+ 1. PSYC0105  2. FYSE1234  3. BIOL0140  4. ENGL0101  5. DANC0100
+ 6. ARTS0170  7. SOAN0101  8. ARBC0101  9. CSCI0101  10. HIST0103
+
+Student: Owen Fitzpatrick | Junior | Physics
+ 1. PHYS0109  2. MATH0310  3. MATH0200  4. CSCI0201  5. BIOL0145
+ 6. CSCI0101  7. ECON0210  8. PSYC0220  9. PHIL0101  10. ENVS0215
+
+Student: Fatima Al-Sayed | Sophomore | Undeclared
+ 1. ARBC0101  2. PSYC0105  3. HIST0103  4. ENVS0112  5. POLS0102
+ 6. PHIL0101  7. ECON0150  8. SOAN0101  9. ENGL0270  10. BIOL0140
+
+Student: Caleb Whitmore | Senior | Computer Science
+ 1. CSCI0201  2. MATH0310  3. ECON0210  4. PHYS0109  5. CSCI0101
+ 6. PHIL0215  7. MATH0200  8. PSYC0220  9. ENVS0215  10. SOAN0101
+
+Student: Zara Hassan | First-Year | Undeclared
+ 1. FYSE1234  2. CSCI0101  3. ENGL0101  4. MATH0121  5. PSYC0105
+ 6. BIOL0140  7. HIST0103  8. ARBC0101  9. ENVS0112  10. ARTS0170
+
+Student: Lucas Ferreira | Junior | Environmental Studies
+ 1. ENVS0112  2. ENVS0215  3. BIOL0140  4. HIST0245  5. POLS0102
+ 6. PHIL0215  7. ECON0150  8. SOAN0101  9. PHYS0109  10. BIOL0145
+
+Student: Mei Lin Chow | Sophomore | Psychology
+ 1. PSYC0105  2. PSYC0220  3. ENGL0270  4. BIOL0140  5. PHIL0101
+ 6. HIST0103  7. SOAN0101  8. DANC0100  9. ARTS0170  10. ECON0155
+
+Student: Benjamin Okafor | Senior | Economics
+ 1. ECON0210  2. ECON0150  3. ECON0155  4. MATH0200  5. POLS0102
+ 6. PHIL0215  7. HIST0245  8. CSCI0101  9. SOAN0101  10. PSYC0220
+
+Student: Ruth Alemayehu | First-Year | Undeclared
+ 1. FYSE1234  2. ENGL0101  3. PSYC0105  4. HIST0103  5. ARBC0101
+ 6. SOAN0101  7. CSCI0101  8. BIOL0140  9. ARTS0170  10. DANC0100
+
+Student: Dylan Marsh | Junior | Math
+ 1. MATH0200  2. MATH0310  3. CSCI0201  4. PHYS0109  5. ECON0210
+ 6. CSCI0101  7. PSYC0220  8. PHIL0101  9. ENVS0215  10. BIOL0145
