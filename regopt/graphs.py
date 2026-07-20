@@ -45,9 +45,9 @@ if __name__ == "__main__":
     expected = len(students) + len(courses)
     print(f"preference graph nodes: {G.number_of_nodes()} (expected {expected})")
 
-    ava_node = "student:Ava Thompson"
-    print(f"{ava_node} neighbors:")
-    for course_node, data in G[ava_node].items():
+    first_node = f"student:{students[0].name}"
+    print(f"{first_node} neighbors:")
+    for course_node, data in G[first_node].items():
         print(f"  rank {data['rank']}: {course_node}")
 
     # Once build_conflict_graph returns something, test it here too:

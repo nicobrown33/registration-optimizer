@@ -53,5 +53,5 @@ if __name__ == "__main__":
     courses = load_courses()
     students = load_students()
     print(f"{len(courses)} courses, {len(students)} students")
-    ava = next(s for s in students if s.name == "Ava Thompson")
-    print(ava.prefs)
+    first = students[0]
+    print(f"{first.name}: {first.prefs}")

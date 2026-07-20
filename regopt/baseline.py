@@ -102,7 +102,7 @@ if __name__ == "__main__":
     priority_order = compute_priority_order(students)
     assignment = run_baseline(students, courses, conflict_graph, priority_order)
 
-    ava = next(s for s in students if s.name == "Ava Thompson")
-    print(f"Ava Thompson assigned: {assignment[ava.name]}")
+    first = students[0]
+    print(f"{first.name} assigned: {assignment[first.name]}")
 
     print(summarize(assignment, students))
