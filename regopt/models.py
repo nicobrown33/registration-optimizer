@@ -40,8 +40,9 @@ class Student:
 # Deliberately a separate shape from Course/Student above, not a drop-in
 # replacement — real sections have properties (multiple meeting times,
 # waitlists, cross-listing, zero-capacity reserved sections) the synthetic
-# model was never designed to represent. See IMPLEMENTATION_GUIDE.md,
-# "Real data ingestion," for how/when to bridge the two.
+# model was never designed to represent. See
+# preprocessing/export_real_courses.py for how the raw JSON is flattened
+# into the Course shape above.
 
 @dataclass
 class MeetingTime:

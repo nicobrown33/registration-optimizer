@@ -24,6 +24,12 @@ python main.py --preset rawlsian --engine ilp
 python main.py --policy policies/balanced.json   # a policy is just a JSON file
 ```
 
+*A note on references: this project's first phase followed a
+milestone-numbered implementation roadmap ("Milestone 4," "the guide") —
+that document has since been removed from the repo tip but lives in git
+history; mentions of it below are historical narrative, and every idea
+borrowed from it is explained where it's used.*
+
 ---
 
 # Part 1 — The thinking

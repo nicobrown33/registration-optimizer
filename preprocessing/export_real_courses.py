@@ -65,10 +65,10 @@ def block_code(days: str, begin_time: str) -> str:
     a conflict "slot": two sections with the same block_code definitely
     conflict, but two sections can still genuinely overlap (e.g. TuTh1245
     vs TuTh1300, or TuTh0900 vs TuTh1000-1200 style partial overlaps)
-    without matching exactly. Equality-based grouping (the approach from
-    Milestone 2) only catches the first case — use the days/begin_time/
-    end_time columns for real overlap logic instead. See
-    IMPLEMENTATION_GUIDE.md, "Real data ingestion."""
+    without matching exactly. Equality-based grouping (what
+    regopt.graphs.build_conflict_graph does) only catches the first case —
+    use the days/begin_time/end_time columns for real overlap logic
+    instead."""
     if not begin_time:
         return "TBA"
     return f"{days}{begin_time}"

@@ -1,8 +1,8 @@
 import pandas as pd
 from regopt.models import Course, Student
 
-# Real Middlebury Fall 2026 data (see preprocessing/export_real_courses.py
-# and IMPLEMENTATION_GUIDE.md, "Real data ingestion") is the default now —
+# Real Middlebury Fall 2026 data (see preprocessing/export_real_courses.py)
+# is the default now —
 # data/courses.csv and data/preferences.csv (the invented 27-course
 # catalog) still exist but nothing routes to them anymore.
 DEFAULT_COURSES_PATH = "data/courses_real.csv"
