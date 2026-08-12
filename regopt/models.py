@@ -30,6 +30,11 @@ class Student:
     class_year: str
     major: str
     prefs: list[str]   # course IDs in rank order; prefs[0] = 1st choice
+    # Average rank received last term (synthetic — see
+    # preprocessing/add_past_outcomes.py). None = no history (First-Years,
+    # or data predating the column); policy code treats None as "no
+    # compensation owed."
+    prior_avg_rank: float | None = None
 
 # --- Real Middlebury data (data/courses_202690.json, Part VII) ------------
 # Deliberately a separate shape from Course/Student above, not a drop-in

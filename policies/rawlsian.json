@@ -1,0 +1,27 @@
+{
+  "name": "rawlsian",
+  "class_year_weights": {
+    "Senior": 1.0,
+    "Junior": 1.0,
+    "Sophomore": 1.0,
+    "First-Year": 1.0
+  },
+  "past_outcome_weight": 0.0,
+  "major_match_bonus": 0.0,
+  "requirement_weight": 0.0,
+  "guarantee_requirement": false,
+  "priority_mode": "weights",
+  "tier_order": [
+    "Senior",
+    "Junior",
+    "Sophomore",
+    "First-Year"
+  ],
+  "equality": 1.0,
+  "rawlsian_tiebreak": true,
+  "seat_bins": {},
+  "rank_cost_exponent": 1.0,
+  "unassigned_penalty": 15.0,
+  "k": 4,
+  "seed": 0
+}
